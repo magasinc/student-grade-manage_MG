@@ -1,3 +1,5 @@
 {
-    "java.checkstyle.configuration": "/google_checks.xml"
-}
+    "java.checkstyle.configuration": "/google_checks.xml",
+    "files.insertFinalNewline": true,
+    "java.project.sourcePaths": ["src"]
+}   
