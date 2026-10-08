@@ -80,6 +80,37 @@ public final class Student {
         grades.add(grade);
     }
 
+
+    /**
+     * Removes the first grade that matches a value.
+     *
+     * @param grade the grade value to remove
+     * @throws IllegalArgumentException if the grade does not exist
+     */
+    public void removeGradeByValue(final double grade) {
+        if (!grades.remove(Double.valueOf(grade))) {
+            throw new IllegalArgumentException(
+                "Grade " + grade + " not found.");
+        }
+    }
+
+    /**
+     * Removes the grade at a position, where 1 is the first grade.
+     *
+     * @param position the position of the grade, starting at 1
+     * @return the grade that was removed
+     * @throws IllegalArgumentException if the position is out of range
+     */
+    public double removeGradeAt(final int position) {
+        if (position < 1 || position > grades.size()) {
+            throw new IllegalArgumentException(
+                "Position " + position + " is out of range. The student has "
+                + grades.size() + " grade(s).");
+        }
+        return grades.remove(position - 1);
+    }
+
+
     /**
      * Calculates the average of all grades.
      *
