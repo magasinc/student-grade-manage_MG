@@ -14,6 +14,30 @@ public final class Student {
     /** Maximum valid grade. */
     public static final double MAX_GRADE = 100.0;
 
+    /** Minimum average for letter A. */
+    public static final double MIN_A = 90.0;
+
+    /** Minimum average for letter B. */
+    public static final double MIN_B = 80.0;
+
+    /** Minimum average for letter C. */
+    public static final double MIN_C = 70.0;
+
+    /** Minimum average for letter D. */
+    public static final double MIN_D = 60.0;
+
+    /** Minimum average to pass. */
+    public static final double MIN_PASSING_AVERAGE = MIN_D;
+
+    /** Minimum average to be on the honor roll. */
+    public static final double MIN_HONOR_AVERAGE = MIN_A;
+
+    /** Text shown for a passing student. */
+    public static final String STATUS_PASSED = "Passed";
+
+    /** Text shown for a failing student. */
+    public static final String STATUS_FAILED = "Failed";
+
     /** Student identifier. */
     private final String id;
 
@@ -54,6 +78,74 @@ public final class Student {
                 + MIN_GRADE + " and " + MAX_GRADE + ".");
         }
         grades.add(grade);
+    }
+
+    /**
+     * Calculates the average of all grades.
+     *
+     * @return the average, or 0.0 if the student has no grades
+     */
+    public double getAverage() {
+        if (grades.isEmpty()) {
+            return 0.0;
+        }
+        double total = 0.0;
+        for (final double grade : grades) {
+            total += grade;
+        }
+        return total / grades.size();
+    }
+
+    /**
+     * Converts the average into a letter grade.
+     *
+     * @return A, B, C, D or F
+     */
+    public char getLetterGrade() {
+        final double average = getAverage();
+        if (average >= MIN_A) {
+            return 'A';
+        }
+        if (average >= MIN_B) {
+            return 'B';
+        }
+        if (average >= MIN_C) {
+            return 'C';
+        }
+        if (average >= MIN_D) {
+            return 'D';
+        }
+        return 'F';
+    }
+
+    /**
+     * Checks whether the student passed.
+     *
+     * @return true if the average is 60 or higher
+     */
+    public boolean isPassed() {
+        return getAverage() >= MIN_PASSING_AVERAGE;
+    }
+
+    /**
+     * Gets the pass or fail status as text.
+     *
+     * @return "Passed" or "Failed"
+     */
+    public String getPassStatus() {
+        if (isPassed()) {
+            return STATUS_PASSED;
+        }
+        return STATUS_FAILED;
+    }
+
+    /**
+     * Checks whether the student is on the honor roll.
+     *
+     * @return true if the average is 90 or higher
+     */
+    public boolean isHonorRoll() {
+        return getAverage() >= MIN_HONOR_AVERAGE;
     }
 
     /**
