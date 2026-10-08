@@ -65,6 +65,41 @@ public final class Student {
         this.name = studentName.trim();
     }
 
+
+
+        /**
+     * Adds a grade given as text, checking that it is a number.
+     *
+     * @param text the grade written as text, for example "85.5"
+     * @throws IllegalArgumentException if the text is not a number or the
+     *         grade is out of range
+     */
+    public void addGradeFromText(final String text) {
+        if (isBlank(text)) {
+            throw notANumber(text);
+        }
+        final double grade;
+        try {
+            grade = Double.parseDouble(text.trim());
+        } catch (NumberFormatException error) {
+            throw notANumber(text);
+        }
+        addGrade(grade);
+    }
+
+    /**
+     * Builds the exception used when a grade is not a number.
+     *
+     * @param text the text that could not be converted
+     * @return the exception to throw
+     */
+    private static IllegalArgumentException notANumber(final String text) {
+        return new IllegalArgumentException(
+            "Invalid grade '" + text + "': it must be a number.");
+    }
+
+
+
     /**
      * Adds a grade to the student.
      *
